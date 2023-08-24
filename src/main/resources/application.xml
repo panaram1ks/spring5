@@ -23,12 +23,20 @@
             </list>
         </constructor-arg>
         <constructor-arg name="properties">
+            <null/>
+            <!--            <map>-->
+            <!--                <entry key="url" value="postgersurl"/>-->
+            <!--                <entry key="password" value="123"/>-->
+            <!--                <entry key="driver" value-ref="driver"/>-->
+            <!--            </map>-->
+        </constructor-arg>
+        <property name="properties">
             <map>
                 <entry key="url" value="postgersurl"/>
                 <entry key="password" value="123"/>
                 <entry key="driver" value-ref="driver"/>
             </map>
-        </constructor-arg>
+        </property>
         <constructor-arg name="driverName" ref="driver"/>
     </bean>
     <!--    <bean id="pool2" name="p4" class="com.dmdev.spring.database.pool.ConnectionPool"/>-->

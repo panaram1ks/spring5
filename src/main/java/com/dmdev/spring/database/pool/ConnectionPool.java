@@ -7,7 +7,7 @@ public class ConnectionPool {
     private final String username;
     private final Integer poolSize;
     private final List<Object> args;
-    private final Map<String, Object> properties;
+    private Map<String, Object> properties;
 
     private final String driverName;
 
@@ -17,5 +17,9 @@ public class ConnectionPool {
         this.args = args;
         this.properties = properties;
         this.driverName = driverName;
+    }
+
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
     }
 }
