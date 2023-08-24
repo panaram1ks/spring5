@@ -12,6 +12,9 @@
     <!--        <property name="locations" value="classpath:application.properties"/>-->
     <!--    </bean>-->
 
+    <bean class="com.dmdev.spring.bfpp.LogBeanFactoryPostProcessor"/>
+    <bean class="com.dmdev.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
+
 
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${db.driver}"/>
@@ -42,7 +45,7 @@
             <map>
                 <entry key="url" value="postgersurl"/>
                 <entry key="password" value="123"/>
-<!--                <entry key="driver" value-ref="#{driver}"/>-->
+                <!--                <entry key="driver" value-ref="#{driver}"/>-->
                 <entry key="test" value="#{driver.length() > 10}"/>
                 <entry key="test" value="#{driver.length() > T(Math).random() * 10}"/>
                 <entry key="hosts" value="#{'${db.hosts}'.split(',')}"/>
