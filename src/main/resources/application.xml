@@ -12,7 +12,8 @@
     <!--    1 value for initialization-->
     <!--    2 index if we want write arguments not as in strict constructor order-->
     <!--    3 name we use to much parameter with constructor parameter-->
-    <bean id="pool1" name="p1,p2,p3" class="com.dmdev.spring.database.pool.ConnectionPool" scope="prototype">
+    <bean id="pool1" name="p1,p2,p3" class="com.dmdev.spring.database.pool.ConnectionPool" scope="singleton"
+          init-method="init">
         <constructor-arg value="strPostgres" name="username" index="0"/>
         <constructor-arg value="10" name="poolSize" index="1"/>
         <constructor-arg name="args">
@@ -24,11 +25,6 @@
         </constructor-arg>
         <constructor-arg name="properties">
             <null/>
-            <!--            <map>-->
-            <!--                <entry key="url" value="postgersurl"/>-->
-            <!--                <entry key="password" value="123"/>-->
-            <!--                <entry key="driver" value-ref="driver"/>-->
-            <!--            </map>-->
         </constructor-arg>
         <property name="properties">
             <map>
@@ -39,7 +35,6 @@
         </property>
         <constructor-arg name="driverName" ref="driver"/>
     </bean>
-    <!--    <bean id="pool2" name="p4" class="com.dmdev.spring.database.pool.ConnectionPool"/>-->
 
     <bean id="companyRepository" class="com.dmdev.spring.database.repository.CompanyRepository" factory-method="of">
         <constructor-arg ref="pool1"/>

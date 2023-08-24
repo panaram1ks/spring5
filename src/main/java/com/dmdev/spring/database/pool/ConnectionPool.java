@@ -22,4 +22,10 @@ public class ConnectionPool {
     public void setProperties(Map<String, Object> properties) {
         this.properties = properties;
     }
+
+
+    //    First invoke constructor then setters then init method!
+    private void init() {
+        System.out.println("init: Initialization connection pool");
+    }
 }
