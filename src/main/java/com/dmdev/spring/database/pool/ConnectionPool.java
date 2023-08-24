@@ -1,11 +1,12 @@
 package com.dmdev.spring.database.pool;
 
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.List;
 import java.util.Map;
 
-public class ConnectionPool implements InitializingBean {
+public class ConnectionPool implements InitializingBean, DisposableBean {
     private final String username;
     private final Integer poolSize;
     private final List<Object> args;
@@ -35,4 +36,14 @@ public class ConnectionPool implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         System.out.println("Properties set");
     }
+
+//  2
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("destroy use interface DisposableBean");
+    }
+//    1
+//    private void destroy() {
+//        System.out.println("destroy: Destroy connection pool");
+//    }
 }
