@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
@@ -14,7 +14,7 @@
 
 
     <bean id="driver" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="PostgresDriver"/>
+        <constructor-arg type="java.lang.String" value="${db.driver}"/>
     </bean>
 
 
@@ -22,11 +22,11 @@
     <!--    1 value for initialization-->
     <!--    2 index if we want write arguments not as in strict constructor order-->
     <!--    3 name we use to much parameter with constructor parameter-->
-    <bean id="pool1" name="p1,p2,p3" class="com.dmdev.spring.database.pool.ConnectionPool" scope="singleton"
+    <bean id="pool1" name="p1,p2,p3" class="com.dmdev.spring.database.pool.ConnectionPool"
           init-method="init"
           destroy-method="destroy">
-        <constructor-arg value="strPostgres" name="username" index="0"/>
-        <constructor-arg value="10" name="poolSize" index="1"/>
+        <constructor-arg value="${db.username}" name="username" index="0"/>
+        <constructor-arg value="${db.pool.size}" name="poolSize" index="1"/>
         <constructor-arg name="args">
             <list>
                 <value>--arg1=value1</value>
@@ -37,11 +37,17 @@
         <constructor-arg name="properties">
             <null/>
         </constructor-arg>
+        <!--  spel (Spring expression language)     #{}              -->
         <property name="properties">
             <map>
                 <entry key="url" value="postgersurl"/>
                 <entry key="password" value="123"/>
-                <entry key="driver" value-ref="driver"/>
+<!--                <entry key="driver" value-ref="#{driver}"/>-->
+                <entry key="test" value="#{driver.length() > 10}"/>
+                <entry key="test" value="#{driver.length() > T(Math).random() * 10}"/>
+                <entry key="hosts" value="#{'${db.hosts}'.split(',')}"/>
+                <entry key="currentUser" value="#{systemProperties['user.name']}"/>
+                <entry key="currentUser" value="${user.name}"/>
             </map>
         </property>
         <constructor-arg name="driverName" ref="driver"/>
