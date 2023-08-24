@@ -9,10 +9,13 @@ public class ConnectionPool {
     private final List<Object> args;
     private final Map<String, Object> properties;
 
-    public ConnectionPool(String username, Integer poolSize, List<Object> args, Map<String, Object> properties) {
+    private final String driverName;
+
+    public ConnectionPool(String username, Integer poolSize, List<Object> args, Map<String, Object> properties, String driverName) {
         this.username = username;
         this.poolSize = poolSize;
         this.args = args;
         this.properties = properties;
+        this.driverName = driverName;
     }
 }
