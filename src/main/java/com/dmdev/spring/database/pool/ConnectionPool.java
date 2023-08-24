@@ -1,9 +1,11 @@
 package com.dmdev.spring.database.pool;
 
+import org.springframework.beans.factory.InitializingBean;
+
 import java.util.List;
 import java.util.Map;
 
-public class ConnectionPool {
+public class ConnectionPool implements InitializingBean {
     private final String username;
     private final Integer poolSize;
     private final List<Object> args;
@@ -27,5 +29,10 @@ public class ConnectionPool {
     //    First invoke constructor then setters then init method!
     private void init() {
         System.out.println("init: Initialization connection pool");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("Properties set");
     }
 }
