@@ -16,6 +16,7 @@
     <context:annotation-config/>
     <bean class="com.dmdev.spring.database.bpp.InjectBeanPostProcessor"/>
     <bean class="com.dmdev.spring.database.bpp.TransactionBeanPostProcessor"/>
+    <bean class="com.dmdev.spring.database.bpp.AuditingBeanPostProcessor"/>
 
     <bean class="com.dmdev.spring.bfpp.LogBeanFactoryPostProcessor"/>
     <bean class="com.dmdev.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>

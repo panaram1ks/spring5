@@ -1,5 +1,6 @@
 package com.dmdev.spring.database.repository;
 
+import com.dmdev.spring.database.bpp.Auditing;
 import com.dmdev.spring.database.bpp.InjectBean;
 import com.dmdev.spring.database.bpp.Transaction;
 import com.dmdev.spring.database.entity.Company;
@@ -9,13 +10,14 @@ import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @Transaction
+@Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     @InjectBean
     private ConnectionPool connectionPool;
 
     @PostConstruct
-    private void init(){
+    private void init() {
         System.out.println("init company repository");
     }
 
