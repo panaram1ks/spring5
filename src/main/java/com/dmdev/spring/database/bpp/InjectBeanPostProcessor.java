@@ -5,10 +5,12 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
 import java.util.Arrays;
 
+@Component
 public class InjectBeanPostProcessor implements BeanPostProcessor, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -19,9 +21,7 @@ public class InjectBeanPostProcessor implements BeanPostProcessor, ApplicationCo
                 .filter(field -> field.isAnnotationPresent(InjectBean.class))
                 .forEach(field -> {
                     Object beanToInject = applicationContext.getBean(field.getType());
-//                    field.setAccessible(true);
                     ReflectionUtils.makeAccessible(field);
-//                    field.set(bean, beanToInject);
                     ReflectionUtils.setField(field, bean, beanToInject);
                 });
 

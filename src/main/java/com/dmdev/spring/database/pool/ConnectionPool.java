@@ -1,36 +1,21 @@
 package com.dmdev.spring.database.pool;
 
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.util.List;
-import java.util.Map;
 
-public class ConnectionPool implements InitializingBean, DisposableBean {
-    private  String username;
-    private Integer poolSize;
-    private  List<Object> args;
-    private Map<String, Object> properties;
+@Component("pool1")
+public class ConnectionPool {
+    private final String username;
+    private final Integer poolSize;
 
-    private  String driverName;
-
-    public ConnectionPool() {
-    }
-
-    public ConnectionPool(String username, Integer poolSize, List<Object> args, Map<String, Object> properties, String driverName) {
+    public ConnectionPool(@Value("${db.username}") String username,
+                          @Value("${db.pool.size}") Integer poolSize) {
         this.username = username;
         this.poolSize = poolSize;
-        this.args = args;
-        this.properties = properties;
-        this.driverName = driverName;
     }
-
-    public void setProperties(Map<String, Object> properties) {
-        this.properties = properties;
-    }
-
 
     //    First invoke constructor then setters then init method!
     @PostConstruct
@@ -38,18 +23,8 @@ public class ConnectionPool implements InitializingBean, DisposableBean {
         System.out.println("init: Initialization connection pool");
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("Properties set");
-    }
-
-//  2
     @PreDestroy
     public void destroy() throws Exception {
         System.out.println("destroy use interface DisposableBean");
     }
-//    1
-//    private void destroy() {
-//        System.out.println("destroy: Destroy connection pool");
-//    }
 }
