@@ -21,7 +21,13 @@ public class ApplicationRunner {
 
 //        try (var context = new ClassPathXmlApplicationContext("application.xml")) {
 
-        try (var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class)) {
+        try (var context = new AnnotationConfigApplicationContext()) {
+
+            // second variant install profile set it into context in environment
+            context.register(ApplicationConfiguration.class);
+            context.getEnvironment().setActiveProfiles("web", "prod");
+            context.refresh();
+
             ConnectionPool pool1 = context.getBean("pool1", ConnectionPool.class);
             System.out.println(pool1);
 
