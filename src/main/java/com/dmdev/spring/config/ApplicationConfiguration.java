@@ -38,6 +38,7 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    @Profile("prod|web") // create bean only when profile is prod, we also able use (  ! & |  )
     public UserRepository userRepository2(ConnectionPool pool2) {
         return new UserRepository(pool2);
     }
