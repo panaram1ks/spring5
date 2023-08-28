@@ -3,6 +3,7 @@ package com.dmdev.spring;
 import com.dmdev.spring.config.ApplicationConfiguration;
 import com.dmdev.spring.database.pool.ConnectionPool;
 import com.dmdev.spring.database.repository.CrudRepository;
+import com.dmdev.spring.service.CompanyService;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -31,8 +32,9 @@ public class ApplicationRunner {
             ConnectionPool pool1 = context.getBean("pool1", ConnectionPool.class);
             System.out.println(pool1);
 
-            CrudRepository companyRepository = context.getBean("companyRepository", CrudRepository.class);
-            System.out.println(companyRepository.findById(1));
+//            CrudRepository companyRepository = context.getBean("companyRepository", CrudRepository.class);
+            CompanyService companyService = context.getBean("companyService", CompanyService.class);
+            System.out.println(companyService.findById(1));
         }
 
 
