@@ -3,6 +3,8 @@ package com.dmdev.spring.database.pool;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +30,7 @@ public class ConnectionPool implements InitializingBean, DisposableBean {
 
 
     //    First invoke constructor then setters then init method!
+    @PostConstruct
     private void init() {
         System.out.println("init: Initialization connection pool");
     }
@@ -38,7 +41,7 @@ public class ConnectionPool implements InitializingBean, DisposableBean {
     }
 
 //  2
-    @Override
+    @PreDestroy
     public void destroy() throws Exception {
         System.out.println("destroy use interface DisposableBean");
     }

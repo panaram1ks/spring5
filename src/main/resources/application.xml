@@ -12,6 +12,9 @@
     <!--        <property name="locations" value="classpath:application.properties"/>-->
     <!--    </bean>-->
 
+<!--    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
+    <context:annotation-config/>
+
     <bean class="com.dmdev.spring.bfpp.LogBeanFactoryPostProcessor"/>
     <bean class="com.dmdev.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
 
@@ -25,9 +28,7 @@
     <!--    1 value for initialization-->
     <!--    2 index if we want write arguments not as in strict constructor order-->
     <!--    3 name we use to much parameter with constructor parameter-->
-    <bean id="pool1" name="p1,p2,p3" class="com.dmdev.spring.database.pool.ConnectionPool"
-          init-method="init"
-          destroy-method="destroy">
+    <bean id="pool1" name="p1,p2,p3" class="com.dmdev.spring.database.pool.ConnectionPool">
         <constructor-arg value="${db.username}" name="username" index="0"/>
         <constructor-arg value="${db.pool.size}" name="poolSize" index="1"/>
         <constructor-arg name="args">
