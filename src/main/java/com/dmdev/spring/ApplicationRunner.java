@@ -25,7 +25,7 @@ public class ApplicationRunner {
             System.out.println(pool1);
 
             companyRepository = context.getBean("companyRepository", CompanyRepository.class);
-            System.out.println(companyRepository);
+            System.out.println(companyRepository.findById(1));
         }
 
 
