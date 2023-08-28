@@ -4,10 +4,10 @@ import com.dmdev.spring.database.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ComponyService {
+public class CompanyService {
     private final UserRepository userRepository;
 
-    public ComponyService(UserRepository userRepository) {
+    public CompanyService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 }

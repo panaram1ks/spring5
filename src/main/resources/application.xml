@@ -7,44 +7,12 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-
     <context:component-scan base-package="com.dmdev.spring"/>
     <context:property-placeholder location="classpath:application.properties"/>
-
 
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${db.driver}"/>
     </bean>
 
-<!--    <bean id="pool1" name="p1,p2,p3" class="com.dmdev.spring.database.pool.ConnectionPool">-->
-<!--        <constructor-arg value="${db.username}" name="username" index="0"/>-->
-<!--        <constructor-arg value="${db.pool.size}" name="poolSize" index="1"/>-->
-<!--        <constructor-arg name="args">-->
-<!--            <list>-->
-<!--                <value>&#45;&#45;arg1=value1</value>-->
-<!--                <ref bean="driver"/>-->
-<!--                <value>&#45;&#45;arg2=value2</value>-->
-<!--            </list>-->
-<!--        </constructor-arg>-->
-<!--        <constructor-arg name="properties">-->
-<!--            <null/>-->
-<!--        </constructor-arg>-->
-<!--        &lt;!&ndash;  spel (Spring expression language)     #{}              &ndash;&gt;-->
-<!--        <property name="properties">-->
-<!--            <map>-->
-<!--                <entry key="url" value="postgersurl"/>-->
-<!--                <entry key="password" value="123"/>-->
-<!--                &lt;!&ndash;                <entry key="driver" value-ref="#{driver}"/>&ndash;&gt;-->
-<!--                <entry key="test" value="#{driver.length() > 10}"/>-->
-<!--                <entry key="test" value="#{driver.length() > T(Math).random() * 10}"/>-->
-<!--                <entry key="hosts" value="#{'${db.hosts}'.split(',')}"/>-->
-<!--                <entry key="currentUser" value="#{systemProperties['user.name']}"/>-->
-<!--                <entry key="currentUser" value="${user.name}"/>-->
-<!--            </map>-->
-<!--        </property>-->
-<!--        <constructor-arg name="driverName" ref="driver"/>-->
-<!--    </bean>-->
-
     <bean id="companyRepository" class="com.dmdev.spring.database.repository.CompanyRepository"/>
-
 </beans>

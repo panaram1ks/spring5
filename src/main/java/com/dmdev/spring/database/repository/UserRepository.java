@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserRepository {
 
-    private final ConnectionPool connectionPool;
+    private final ConnectionPool pool1;
 
     public UserRepository(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+        this.pool1 = connectionPool;
     }
 }
