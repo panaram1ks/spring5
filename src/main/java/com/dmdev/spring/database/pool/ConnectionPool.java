@@ -9,12 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 public class ConnectionPool implements InitializingBean, DisposableBean {
-    private final String username;
-    private final Integer poolSize;
-    private final List<Object> args;
+    private  String username;
+    private Integer poolSize;
+    private  List<Object> args;
     private Map<String, Object> properties;
 
-    private final String driverName;
+    private  String driverName;
+
+    public ConnectionPool() {
+    }
 
     public ConnectionPool(String username, Integer poolSize, List<Object> args, Map<String, Object> properties, String driverName) {
         this.username = username;
