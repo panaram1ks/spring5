@@ -1,17 +1,12 @@
 package com.dmdev.spring.database.repository;
 
+import com.dmdev.spring.database.bpp.InjectBean;
 import com.dmdev.spring.database.pool.ConnectionPool;
 
 public class CompanyRepository {
 
-    private final ConnectionPool connectionPool;
+    @InjectBean
+    private ConnectionPool connectionPool;
 
-    public CompanyRepository(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
-    }
 
-    // Factory method!
-    public static CompanyRepository of(ConnectionPool connectionPool){
-        return new CompanyRepository(connectionPool);
-    }
 }
