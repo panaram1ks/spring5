@@ -15,13 +15,13 @@ import static org.springframework.context.annotation.ComponentScan.*;
 @Import(WebConfiguration.class) // can import configuration from different packages!
 @Configuration(proxyBeanMethods = true) // we can invoke same method many times only when when proxyBeanMethods = true
 @PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "com.dmdev.spring", useDefaultFilters = false,
-        includeFilters = {
-                @Filter(type = FilterType.ANNOTATION, value = Component.class),
-                @Filter(type = FilterType.ASSIGNABLE_TYPE, value = CrudRepository.class),
-                @Filter(type = FilterType.REGEX, pattern = "com\\..+Repostirory"),
-        }
-)
+//@ComponentScan(basePackages = "com.dmdev.spring", useDefaultFilters = false,
+//        includeFilters = {
+//                @Filter(type = FilterType.ANNOTATION, value = Component.class),
+//                @Filter(type = FilterType.ASSIGNABLE_TYPE, value = CrudRepository.class),
+//                @Filter(type = FilterType.REGEX, pattern = "com\\..+Repostirory"),
+//        }
+//)
 public class ApplicationConfiguration {
 
     // we can create bean as a field of ApplicationConfiguration.class cause it is Component
