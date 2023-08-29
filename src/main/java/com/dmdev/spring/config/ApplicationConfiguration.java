@@ -14,7 +14,7 @@ import static org.springframework.context.annotation.ComponentScan.*;
 //@ImportResource("classpath:application.xml") // we can add configuration from xml
 @Import(WebConfiguration.class) // can import configuration from different packages!
 @Configuration(proxyBeanMethods = true) // we can invoke same method many times only when when proxyBeanMethods = true
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yml")
 //@ComponentScan(basePackages = "com.dmdev.spring", useDefaultFilters = false,
 //        includeFilters = {
 //                @Filter(type = FilterType.ANNOTATION, value = Component.class),

@@ -1,6 +1,7 @@
 package com.dmdev.spring;
 
 import com.dmdev.spring.config.ApplicationConfiguration;
+import com.dmdev.spring.config.DatabaseProperties;
 import com.dmdev.spring.database.pool.ConnectionPool;
 import com.dmdev.spring.database.repository.CrudRepository;
 import com.dmdev.spring.service.CompanyService;
@@ -19,6 +20,7 @@ public class ApplicationRunner {
         ConfigurableApplicationContext context = SpringApplication.run(ApplicationRunner.class, args);
         System.out.println(context.getBeanDefinitionCount());
         System.out.println(context.getBean("pool1"));
+        System.out.println(context.getBean(DatabaseProperties.class));
     }
 
 }
