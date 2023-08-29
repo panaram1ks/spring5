@@ -15,8 +15,8 @@ import java.util.Optional;
 
 @Slf4j
 @Repository
-@Transaction
-@Auditing
+//@Transaction
+//@Auditing
 @RequiredArgsConstructor
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
