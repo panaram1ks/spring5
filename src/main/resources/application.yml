@@ -18,3 +18,7 @@ db:
       timeout: 3
     - size: 3
       timeout: 9
+logging:
+  level:
+    root: warn
+    com.dmdev.spring.database.pool.ConnectionPool: info
