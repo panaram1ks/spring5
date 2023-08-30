@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, FilterUserRepository {
 
     @Query(value = "select u from User u where u.firstname like %:firstname% and u.lastname like %:lastname%")
     List<User> findAllBy(@Param("firstname") String firstname, @Param("lastname") String lastname);
