@@ -3,19 +3,19 @@ package com.dmdev.spring.database.repository;
 import com.dmdev.spring.database.entity.Role;
 import com.dmdev.spring.database.entity.User;
 import com.dmdev.spring.database.pool.ConnectionPool;
+import com.dmdev.spring.dto.PersonalInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.LockModeType;
+import javax.persistence.QueryHint;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +37,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findTop3ByBirthDateBeforeOrderByBirthDateDesc(LocalDate birthDate);
 
+    @QueryHints(@QueryHint(name = "org.hibernate.fetchSixe", value = "50"))
+    @Lock(LockModeType.PESSIMISTIC_READ)
     List<User> findTop3ByBirthDateBefore(LocalDate birthDate, Sort sort);
 
 
@@ -47,5 +49,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @EntityGraph(attributePaths = {"company", "company.locales"})
 //    @EntityGraph("User.company")
     Page<User> findAllBy(Pageable pageable);
+
+//    List<PersonalInfo> findAllByCompanyId(Integer companyId);
+   <T> List<T> findAllByCompanyId(Integer companyId, Class<T> clazz);
 
 }

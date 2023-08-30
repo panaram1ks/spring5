@@ -3,6 +3,7 @@ package com.dmdev.spring.integration.database.repository;
 import com.dmdev.spring.database.entity.Role;
 import com.dmdev.spring.database.entity.User;
 import com.dmdev.spring.database.repository.UserRepository;
+import com.dmdev.spring.dto.PersonalInfo;
 import com.dmdev.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserRepositoryTestIT {
 
     private final UserRepository userRepository;
+
+    @Test
+    void checkProjections() {
+        List<PersonalInfo> users = userRepository.findAllByCompanyId(1, PersonalInfo.class);
+        assertThat(users).hasSize(2);
+        System.out.println();
+    }
 
     @Test
     void checkSlice() {
