@@ -1,10 +1,16 @@
 package com.dmdev.spring.database.repository;
 
 import com.dmdev.spring.database.entity.Company;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
-public interface CompanyRepository extends Repository<Company, Integer> {
-    Optional<Company> findById(Integer id);
-     void delete(Company entity);
+
+public interface CompanyRepository extends JpaRepository<Company, Integer> {
+
+    // Optional, Entity, Future
+    Optional<Company> findByName(String name);
+
+    // Collection, Stream (batch, close)
+    List<Company> findAllByNameIsContainingIgnoreCase(String fragment);
 }
