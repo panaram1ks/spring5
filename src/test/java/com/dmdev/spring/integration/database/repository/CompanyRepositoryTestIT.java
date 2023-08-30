@@ -27,7 +27,7 @@ class CompanyRepositoryTestIT {
 
     @Test
     void checkFindByQueries() {
-        companyRepository.findByName("Google");
+        companyRepository.findByName("google");
         companyRepository.findAllByNameIsContainingIgnoreCase("a");
     }
 
