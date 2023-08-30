@@ -22,7 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             value = "SELECT u.* FROM users u WHERE u.username = :username")
     List<User> findAllByUsername(String username);
 
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("update User  u set u.role = :role where u.id in (:ids)")
     int updateRole(@Param("role") Role role, @Param("ids") Long... ids);
 

@@ -25,7 +25,13 @@ class UserRepositoryTestIT {
 
     @Test
     void checkUpdate() {
+        User ivan = userRepository.getById(1l);
+        org.junit.jupiter.api.Assertions.assertSame(Role.ADMIN, ivan.getRole());
+
         int resultCount = userRepository.updateRole(Role.USER, 1l, 5l);
         org.junit.jupiter.api.Assertions.assertEquals(resultCount, 2);
+
+        User theSameIvan = userRepository.getById(1l);
+        org.junit.jupiter.api.Assertions.assertSame(Role.USER, theSameIvan.getRole());
     }
 }
