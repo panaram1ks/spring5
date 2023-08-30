@@ -6,6 +6,8 @@ import com.dmdev.spring.database.repository.UserRepository;
 import com.dmdev.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
@@ -22,7 +24,15 @@ class UserRepositoryTestIT {
     private final UserRepository userRepository;
 
     @Test
-    void specialParameters(){
+    void checkPageable() {
+//        Pageable
+        PageRequest pageable = PageRequest.of(1, 2, Sort.by("id"));
+        List<User> page = userRepository.findAllBy(pageable);
+        assertThat(page).hasSize(2);
+    }
+
+    @Test
+    void specialParameters() {
         Sort.TypedSort<User> sortBy = Sort.sort(User.class);
         Sort sort = sortBy.by(User::getFirstname).and(sortBy.by(User::getLastname));
         // safe method create sort object use fields without hardcoding string field names

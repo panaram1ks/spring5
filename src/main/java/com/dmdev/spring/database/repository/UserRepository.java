@@ -5,6 +5,7 @@ import com.dmdev.spring.database.entity.User;
 import com.dmdev.spring.database.pool.ConnectionPool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -33,5 +34,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findTop3ByBirthDateBeforeOrderByBirthDateDesc(LocalDate birthDate);
     List<User> findTop3ByBirthDateBefore(LocalDate birthDate, Sort sort);
+
+    List<User> findAllBy(Pageable pageable);
 
 }
