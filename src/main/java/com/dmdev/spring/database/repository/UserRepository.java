@@ -4,6 +4,7 @@ import com.dmdev.spring.database.entity.Role;
 import com.dmdev.spring.database.entity.User;
 import com.dmdev.spring.database.pool.ConnectionPool;
 import com.dmdev.spring.dto.PersonalInfo;
+import com.dmdev.spring.dto.PersonalInfo2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -51,6 +52,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> findAllBy(Pageable pageable);
 
 //    List<PersonalInfo> findAllByCompanyId(Integer companyId);
-   <T> List<T> findAllByCompanyId(Integer companyId, Class<T> clazz);
+//   <T> List<T> findAllByCompanyId(Integer companyId, Class<T> clazz);
+
+    @Query(value = "SELECT firstname, lastname, birth_date as birthDate FROM users WHERE company_id = :companyId",
+            nativeQuery = true)
+    List<PersonalInfo2> findAllByCompanyId(@Param("companyId") Integer companyId);
 
 }
