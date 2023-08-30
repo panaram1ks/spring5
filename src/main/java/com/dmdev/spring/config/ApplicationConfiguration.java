@@ -33,18 +33,18 @@ public class ApplicationConfiguration {
         return new ConnectionPool("test-pool", 25);
     }
 
-    @Bean
-    @Profile("prod|web") // create bean only when profile is prod, we also able use (  ! & |  )
-    public UserRepository userRepository2(ConnectionPool pool2) {
-        return new UserRepository(pool2);
-    }
+//    @Bean
+//    @Profile("prod|web") // create bean only when profile is prod, we also able use (  ! & |  )
+//    public UserRepository userRepository2(ConnectionPool pool2) {
+//        return new UserRepository(pool2);
+//    }
 
-    // 3th variant create bean invoke method
-    @Bean
-    public UserRepository userRepository3() {
-           var connection1 = pool3();
-           var connection2 = pool3();
-           var connection3 = pool3();
-        return new UserRepository(pool3());
-    }
+//    // 3th variant create bean invoke method
+//    @Bean
+//    public UserRepository userRepository3() {
+//           var connection1 = pool3();
+//           var connection2 = pool3();
+//           var connection3 = pool3();
+//        return new UserRepository(pool3());
+//    }
 }
