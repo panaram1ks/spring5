@@ -5,6 +5,7 @@ import com.dmdev.spring.database.entity.User;
 import com.dmdev.spring.database.pool.ConnectionPool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
@@ -39,6 +40,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // Collection, Stream
     // Streamable, Slice, Page
-    Slice<User> findAllBy(Pageable pageable);
+    Page<User> findAllBy(Pageable pageable);
 
 }
