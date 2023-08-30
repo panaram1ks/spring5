@@ -1,7 +1,7 @@
 package com.dmdev.spring.service;
 
 import com.dmdev.spring.database.entity.Company;
-import com.dmdev.spring.database.repository.CrudRepository;
+import com.dmdev.spring.database.repository.CompanyRepository;
 import com.dmdev.spring.database.repository.UserRepository;
 import com.dmdev.spring.dto.CompanyReadDto;
 import com.dmdev.spring.listener.entity.EntityEvent;
@@ -16,7 +16,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import java.util.Collections;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class CompanyServiceTest {
@@ -24,7 +25,7 @@ class CompanyServiceTest {
     public static final Integer COMPANY_ID = 1;
 
     @Mock
-    private CrudRepository<Integer, Company> companyRepository;
+    private CompanyRepository companyRepository;
     @Mock
     private UserRepository userRepository;
     @Mock
