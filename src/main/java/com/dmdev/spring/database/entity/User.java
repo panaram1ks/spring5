@@ -1,6 +1,9 @@
 package com.dmdev.spring.database.entity;
 
 import lombok.*;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,6 +23,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "users")
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class User extends AuditingEntity<Long> {
 
     @Id
@@ -42,6 +46,7 @@ public class User extends AuditingEntity<Long> {
     @JoinColumn(name = "company_id") // it not required annotate this column
     private Company company;
 
+    @NotAudited // shoud do it in case of Lists
     @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats = new ArrayList<>();

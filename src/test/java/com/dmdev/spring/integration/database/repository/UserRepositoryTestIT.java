@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,6 +29,7 @@ class UserRepositoryTestIT {
     private final UserRepository userRepository;
 
     @Test
+    @Commit
     void checkAuditing(){
         User ivan = userRepository.findById(1l).get();
         ivan.setBirthDate(ivan.getBirthDate().plusYears(1l));
