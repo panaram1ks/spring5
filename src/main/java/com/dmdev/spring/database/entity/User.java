@@ -7,6 +7,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@NamedEntityGraph(
+        name = "User.company",
+        attributeNodes = @NamedAttributeNode("company")
+)
 @Data
 @ToString(exclude = "userChats")
 @EqualsAndHashCode(of = "username")
