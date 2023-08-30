@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
@@ -24,11 +25,24 @@ class UserRepositoryTestIT {
     private final UserRepository userRepository;
 
     @Test
+    void checkSlice() {
+        PageRequest pageable = PageRequest.of(0, 2, Sort.by("id"));
+        Slice<User> slice = userRepository.findAllBy(pageable);
+        ;
+        slice.forEach(user -> System.out.println(user.getId()));
+
+        while (slice.hasNext()) {
+            slice = userRepository.findAllBy(slice.nextPageable());
+            slice.forEach(user -> System.out.println(user.getId()));
+        }
+    }
+
+    @Test
     void checkPageable() {
 //        Pageable
         PageRequest pageable = PageRequest.of(1, 2, Sort.by("id"));
-        List<User> page = userRepository.findAllBy(pageable);
-        assertThat(page).hasSize(2);
+        Slice<User> slice = userRepository.findAllBy(pageable);
+        assertThat(slice).hasSize(2);
     }
 
     @Test
