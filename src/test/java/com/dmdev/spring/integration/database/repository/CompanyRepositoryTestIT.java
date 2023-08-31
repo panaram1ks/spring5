@@ -2,6 +2,7 @@ package com.dmdev.spring.integration.database.repository;
 
 import com.dmdev.spring.database.entity.Company;
 import com.dmdev.spring.database.repository.CompanyRepository;
+import com.dmdev.spring.integration.IntegrationTestBase;
 import com.dmdev.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
@@ -16,10 +17,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@IT
 @RequiredArgsConstructor
 //@Transactional // from Spring, not from javax package // We also have @Rollback & @Commit
-class CompanyRepositoryTestIT {
+class CompanyRepositoryTestIT  extends IntegrationTestBase {
 
     private final EntityManager entityManager;
     private final TransactionTemplate transactionTemplate;

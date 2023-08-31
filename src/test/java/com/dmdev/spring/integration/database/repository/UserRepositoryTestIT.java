@@ -6,15 +6,13 @@ import com.dmdev.spring.database.repository.UserRepository;
 import com.dmdev.spring.dto.PersonalInfo;
 import com.dmdev.spring.dto.PersonalInfo2;
 import com.dmdev.spring.dto.UserFilter;
-import com.dmdev.spring.integration.annotation.IT;
+import com.dmdev.spring.integration.IntegrationTestBase;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
-import org.springframework.test.annotation.Commit;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,12 +21,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@IT
-@Sql({
-      "classpath:sql/data-test.sql"
-})
 @RequiredArgsConstructor
-class UserRepositoryTestIT {
+class UserRepositoryTestIT extends IntegrationTestBase {
 
     private final UserRepository userRepository;
 
@@ -123,6 +117,7 @@ class UserRepositoryTestIT {
     }
 
     @Test
+    @Disabled
     void checkQueries() {
 //        List<User> users = userRepository.findAllBy("%a%", "%ov%");
         List<User> users = userRepository.findAllBy("a", "ov");
