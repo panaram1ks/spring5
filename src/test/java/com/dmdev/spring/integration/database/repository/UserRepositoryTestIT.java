@@ -28,6 +28,14 @@ class UserRepositoryTestIT {
 
     private final UserRepository userRepository;
 
+    @Test
+    void checkBatch(){
+        List<User> all = userRepository.findAll();
+        userRepository.updateCompanyAndRole(all);
+        System.out.println();
+    }
+
+
 //    @Test
 //    @Commit
 //    void checkAuditing(){

@@ -66,6 +66,19 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
         );
     }
 
+    public static final String UPDATE_COMPANY_AND_ROLE = """
+            UPDATE users
+            SET company_id = ?,
+                role = ?
+            WHERE id = ?                        
+            """;
+
+    @Override
+    public void updateCompanyAndRole(List<User> users) {
+        List<Object[]> args = users.stream().map(user -> new Object[]{user.getCompany().getId(), user.getRole().name(), user.getId()}).toList();
+        jdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE, args);
+    }
+
 //    @Override
 //    public List<User> findAllByFilter(UserFilter filter) {
 //        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
