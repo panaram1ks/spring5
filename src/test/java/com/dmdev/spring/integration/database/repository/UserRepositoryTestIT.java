@@ -38,6 +38,12 @@ class UserRepositoryTestIT {
 //    }
 
     @Test
+    void checkJdbcTemplate_Spring(){
+        List<PersonalInfo> users = userRepository.findAllByCompanyIdAndRole(1, Role.ADMIN);
+        assertEquals(users.size(), 1);
+    }
+
+    @Test
     void checkQueryDsl(){
         UserFilter filter = new UserFilter(null, "%ov%", LocalDate.now());
         List<User> users = userRepository.findAllByFilter(filter);
