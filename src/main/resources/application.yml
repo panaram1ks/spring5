@@ -27,6 +27,8 @@ logging:
     name: dmdev.log
     path: /
 
+spring.profiles.active: qa
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/postgres
@@ -38,4 +40,3 @@ spring:
       show_sql: true
       format_sql: true
       hbm2dll.auto: validate
-  profiles.active: qa

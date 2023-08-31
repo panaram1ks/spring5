@@ -1,6 +1,6 @@
-db:
-  username: test
-  password: test
+#db:
+#  username: postgres
+#  password: pass
 
 spring:
   jpa:
