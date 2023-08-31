@@ -44,3 +44,5 @@ spring:
 #      on Hibernate level
 #      batch_size: 50
 #      fetch_size: 50
+
+spring.liquibase.change-log: classpath:db/changelog/db.chagelog-master.yaml

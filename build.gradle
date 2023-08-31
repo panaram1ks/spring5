@@ -26,6 +26,7 @@ dependencies {
     implementation 'com.querydsl:querydsl-jpa'
     annotationProcessor 'com.querydsl:querydsl-apt'
     implementation 'org.postgresql:postgresql'
+    implementation 'org.liquibase:liquibase-core'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    testImplementation 'com.h2database:h2'
