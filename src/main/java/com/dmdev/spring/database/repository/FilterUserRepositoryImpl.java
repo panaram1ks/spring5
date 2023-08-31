@@ -10,6 +10,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,6 +22,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 import static com.dmdev.spring.database.entity.QUser.user;
 
@@ -77,6 +81,27 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
     public void updateCompanyAndRole(List<User> users) {
         List<Object[]> args = users.stream().map(user -> new Object[]{user.getCompany().getId(), user.getRole().name(), user.getId()}).toList();
         jdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE, args);
+    }
+
+
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public static final String UPDATE_COMPANY_AND_ROLE_NAMED = """
+            UPDATE users
+            SET company_id = :companyId,
+                role = :role
+            WHERE id = :id                        
+            """;
+
+    @Override
+    public void updateCompanyAndRoleNamed(List<User> users) {
+        MapSqlParameterSource[] mapSqlParameterSources = users.stream().map(user -> Map.of(
+                        "companyId", user.getCompany().getId(),
+                        "role", user.getRole().name(),
+                        "id", user.getId()
+                )).map(MapSqlParameterSource::new)
+                .toArray(MapSqlParameterSource[]::new);
+        namedParameterJdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE_NAMED, mapSqlParameterSources);
     }
 
 //    @Override
