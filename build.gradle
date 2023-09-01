@@ -29,6 +29,8 @@ dependencies {
     implementation 'org.postgresql:postgresql'
     implementation 'org.liquibase:liquibase-core'
 
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    testImplementation 'com.h2database:h2'
     testImplementation 'org.testcontainers:postgresql:1.16.3'
