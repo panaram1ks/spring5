@@ -6,8 +6,7 @@ CREATE TABLE IF NOT EXISTS company
     id   SERIAL PRIMARY KEY,
     name VARCHAR(64) NOT NULL UNIQUE
 );
---
-rollback DROP TABLE company;
+--rollback DROP TABLE company;
 
 --changeset dmatveyenka:2
 CREATE TABLE IF NOT EXISTS company_locales
