@@ -1,13 +1,17 @@
 package com.dmdev.spring.http.controller;
 
 
+import com.dmdev.spring.database.entity.Role;
 import com.dmdev.spring.dto.UserReadDto;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/")
@@ -23,14 +27,6 @@ public class GreetingController {
 
         return modelAndView;
     }
-
-//    @GetMapping("/hello")
-//    public ModelAndView hello2(ModelAndView modelAndView, HttpServletRequest request) {
-//
-//        modelAndView.setViewName("greeting/hello");
-//        return modelAndView;
-//    }
-
 
 //    @GetMapping("/hello/{id}")
 //    public ModelAndView hello(ModelAndView modelAndView, HttpServletRequest request,
@@ -50,13 +46,24 @@ public class GreetingController {
 //        return modelAndView;  //                 http://localhost:8080/api/v1/hello/29?age=18
 //    }
 
-    @GetMapping("/bye")
-    public ModelAndView bye(@SessionAttribute("user") UserReadDto user, // request.getSession().getAttribute("user");
-                            ModelAndView modelAndView,
-                            HttpServletRequest request) {
-        modelAndView.setViewName("greeting/bye");
+//    @GetMapping("/bye")
+//    public ModelAndView bye(@SessionAttribute("user") UserReadDto user, // request.getSession().getAttribute("user");
+//                            ModelAndView modelAndView,
+//                            HttpServletRequest request) {
+//        modelAndView.setViewName("greeting/bye");
+//
+//        return modelAndView;
+//    }
 
-        return modelAndView;
+    @GetMapping("/bye")
+    public String bye(/*@SessionAttribute("user") UserReadDto user,*/ Model model, @ModelAttribute UserReadDto userReadDto) {
+        model.addAttribute("key", "value");
+        return "greeting/bye";
+    }
+
+    @ModelAttribute("roles") // can invoke it everywhere, but it will be invoke each time when invoke any methods of controller
+    public List<Role> roles(){
+        return Arrays.asList(Role.values());
     }
 
 }
