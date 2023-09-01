@@ -39,7 +39,7 @@ class CompanyServiceTest {
                 .when(companyRepository).findById(COMPANY_ID);
         Optional<CompanyReadDto> actualResult = companyService.findById(COMPANY_ID);
         assertTrue(actualResult.isPresent());
-        var expectedResult = new CompanyReadDto(COMPANY_ID);
+        var expectedResult = new CompanyReadDto(COMPANY_ID, null);
         actualResult.ifPresent(actual -> assertEquals(expectedResult, actual));
         Mockito.verify(eventPublisher).publishEvent(Mockito.any(EntityEvent.class));
         Mockito.verifyNoMoreInteractions(eventPublisher, userRepository);
