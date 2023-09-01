@@ -28,6 +28,7 @@ dependencies {
     annotationProcessor 'com.querydsl:querydsl-apt'
     implementation 'org.postgresql:postgresql'
     implementation 'org.liquibase:liquibase-core'
+    implementation 'org.springframework.boot-starter:thymeleaf'
 
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
