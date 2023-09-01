@@ -41,9 +41,10 @@ spring:
       show_sql: true
       format_sql: true
       hbm2dll.auto: validate
-#      on Hibernate level
-#      batch_size: 50
-#      fetch_size: 50
+    #      on Hibernate level
+    #      batch_size: 50
+    #      fetch_size: 50
+    open-in-view: false
   mvc:
     view:
       prefix: /WEB-INF/jsp/
