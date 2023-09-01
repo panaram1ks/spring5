@@ -56,8 +56,9 @@ public class GreetingController {
 //    }
 
     @GetMapping("/bye")
-    public String bye(/*@SessionAttribute("user") UserReadDto user,*/ Model model, @ModelAttribute UserReadDto userReadDto) {
+    public String bye(/*@SessionAttribute("user") UserReadDto user,*/ Model model, @ModelAttribute UserReadDto userReadDto, HttpServletRequest request) {
         model.addAttribute("key", "value");
+        request.getSession().setAttribute("userReadDto", userReadDto);
         return "greeting/bye";
     }
 
