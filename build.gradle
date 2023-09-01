@@ -16,7 +16,7 @@ repositories {
 }
 
 configurations {
-    querydsl.extendsFrom annotationProcessor, implementation, compileOnly, runtimeOnly
+    querydsl.extendsFrom implementation, compileOnly, runtimeOnly, annotationProcessor
 }
 
 dependencies {
@@ -41,6 +41,7 @@ querydsl {
     library = "com.querydsl:querydsl-apt:5.0.0"
     querydslSourcesDir = "$buildDir/generated/sources/annotationProcessor/java/main"
 }
+
 compileQuerydsl {
  options.annotationProcessorPath = configurations.querydsl
 }

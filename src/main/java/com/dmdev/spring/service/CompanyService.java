@@ -17,7 +17,6 @@ import java.util.Optional;
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
-    private final UserRepository userRepository;
     private final ApplicationEventPublisher eventPublisher;
 
     @Transactional

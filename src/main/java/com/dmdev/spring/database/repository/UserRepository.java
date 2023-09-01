@@ -2,20 +2,14 @@ package com.dmdev.spring.database.repository;
 
 import com.dmdev.spring.database.entity.Role;
 import com.dmdev.spring.database.entity.User;
-import com.dmdev.spring.database.pool.ConnectionPool;
-import com.dmdev.spring.dto.PersonalInfo;
 import com.dmdev.spring.dto.PersonalInfo2;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.LockModeType;
 import javax.persistence.QueryHint;
