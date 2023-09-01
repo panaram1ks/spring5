@@ -23,7 +23,7 @@ public class GreetingController {
 //        request.getSession().setAttribute(); // sessionScope
 //        request.setAttribute(); // requestScope
         modelAndView.setViewName("greeting/hello");
-        modelAndView.addObject("user", new UserReadDto(1l, "Ivan"));
+//        modelAndView.addObject("user", new UserReadDto(1l, "Ivan"));
 
         return modelAndView;
     }
