@@ -10,6 +10,7 @@ import com.dmdev.spring.service.UserService;
 import com.dmdev.spring.validation.group.CreateAction;
 import com.dmdev.spring.validation.group.UpdateAction;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.groups.Default;
 
+@Slf4j
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -30,6 +32,12 @@ public class UserController {
 
     private final UserService userService;
     private final CompanyService companyService;
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(Exception exception) {
+        log.error("Failed to return response", exception);
+        return "error/error500";
+    }
 
     @GetMapping
     public String findAll(Model model, UserFilter filter, Pageable pageabel) {
@@ -52,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String registration(Model model,@ModelAttribute("user") UserCreateEditDto user){
+    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
         model.addAttribute("companies", companyService.findAll());
@@ -65,7 +73,7 @@ public class UserController {
     public String create(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateEditDto user,
                          BindingResult bindingResult, // IMPORTANT BindingResult should stay right after Validate argument, else it does not work!
                          RedirectAttributes redirectAttributes) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("user", user); // put object in session
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/users/registration";
@@ -84,7 +92,7 @@ public class UserController {
     //    @DeleteMapping("/{id}")
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
-        if(!userService.delete(id)){
+        if (!userService.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return "redirect:/users";
