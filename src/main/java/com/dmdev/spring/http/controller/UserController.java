@@ -33,11 +33,11 @@ public class UserController {
     private final UserService userService;
     private final CompanyService companyService;
 
-    @ExceptionHandler(Exception.class)
-    public String handleException(Exception exception) {
-        log.error("Failed to return response", exception);
-        return "error/error500";
-    }
+//    @ExceptionHandler(Exception.class)
+//    public String handleException(Exception exception) {
+//        log.error("Failed to return response", exception);
+//        return "error/error500";
+//    }
 
     @GetMapping
     public String findAll(Model model, UserFilter filter, Pageable pageabel) {
