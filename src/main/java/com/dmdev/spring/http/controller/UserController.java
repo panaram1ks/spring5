@@ -13,9 +13,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
@@ -56,19 +59,20 @@ public class UserController {
 
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute UserCreateEditDto user, RedirectAttributes redirectAttributes) {
-//        if(true){
-////            redirectAttributes.addAttribute("username", user.getUsername());
-////            redirectAttributes.addAttribute("firstname", user.getFirstname());
-//            redirectAttributes.addFlashAttribute("user", user); // put object in session
-//            return "redirect:/users/registration";
-//        }
+    public String create(@ModelAttribute @Valid UserCreateEditDto user,
+                         BindingResult bindingResult, // IMPORTANT BindingResult should stay right after Validate argument, else it does not work!
+                         RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("user", user); // put object in session
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/users/registration";
+        }
         return "redirect:/users/" + userService.create(user).getId();
     }
 
     //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
-    public String update(@ModelAttribute UserCreateEditDto user, @PathVariable("id") Long id) {
+    public String update(@ModelAttribute @Valid UserCreateEditDto user, @PathVariable("id") Long id) {
         return userService.update(id, user)
                 .map(it -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

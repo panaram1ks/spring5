@@ -8,13 +8,13 @@
 
 <form action="/users">
     <label for="firstname">Firstname:
-        <input type="text" name="firstname" id="firstname"  th:value="${fielter.firstname()}">
+        <input type="text" name="firstname" id="firstname"  th:value="${filter.firstname()}">
     </label><br>
     <label for="lastname">Lastname:
-        <input type="text" name="lastname" id="lastname" th:value="${fielter.lastname()}">
+        <input type="text" name="lastname" id="lastname" th:value="${filter.lastname()}">
     </label><br>
     <label for="birthDate">BirthDate:
-        <input type="date" name="birthDate" id="birthDate" th:value="${fielter.birthDate()}">
+        <input type="date" name="birthDate" id="birthDate" th:value="${filter.birthDate()}">
     </label><br>
     <div>
         <label for="page">Page:
@@ -28,7 +28,7 @@
 </form>
 
 <div th:each="user : ${users}">
-    <a th:href="@{'/users/' + ${user.id}}" th:text="|${user.id}.  ${user.username}|">text</a>
+    <a th:href="@{'/users/' + ${user.content}}" th:text="|${user.content}|">text</a>
 </div>
 
 </body>
