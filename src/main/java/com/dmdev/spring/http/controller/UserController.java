@@ -7,6 +7,8 @@ import com.dmdev.spring.dto.UserFilter;
 import com.dmdev.spring.dto.UserReadDto;
 import com.dmdev.spring.service.CompanyService;
 import com.dmdev.spring.service.UserService;
+import com.dmdev.spring.validation.group.CreateAction;
+import com.dmdev.spring.validation.group.UpdateAction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,11 +16,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
+import javax.validation.groups.Default;
 
 @Controller
 @RequestMapping("/users")
@@ -59,7 +62,7 @@ public class UserController {
 
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute @Valid UserCreateEditDto user,
+    public String create(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateEditDto user,
                          BindingResult bindingResult, // IMPORTANT BindingResult should stay right after Validate argument, else it does not work!
                          RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()){
@@ -72,7 +75,7 @@ public class UserController {
 
     //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
-    public String update(@ModelAttribute @Valid UserCreateEditDto user, @PathVariable("id") Long id) {
+    public String update(@ModelAttribute @Validated({Default.class, UpdateAction.class}) UserCreateEditDto user, @PathVariable("id") Long id) {
         return userService.update(id, user)
                 .map(it -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
