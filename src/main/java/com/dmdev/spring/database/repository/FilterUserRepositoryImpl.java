@@ -16,7 +16,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Map;
 
-import static com.dmdev.spring.database.entity.QUser.user;
+import static com.dmdev.spring.database.entity.Quser.user;
 
 @RequiredArgsConstructor
 public class FilterUserRepositoryImpl implements FilterUserRepository {
