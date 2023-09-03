@@ -58,4 +58,5 @@ public interface UserRepository extends
             nativeQuery = true)
     List<PersonalInfo2> findAllByCompanyId(@Param("companyId") Integer companyId);
 
+    Optional<User> findByUsername(String username);
 }
