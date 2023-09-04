@@ -55,17 +55,22 @@ spring:
 #    view:
 #      prefix: /WEB-INF/jsp/
 #      suffix: .jsp
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 1057504398138-n9nnnh1g8mu0jflune6vkm4a0c3div9t.apps.googleusercontent.com
+            clientSecret: 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
+            redirectUri: http://localhost:8080/login/oauth2/code/google
+            scope: openid,email,profile
+
+  messages:
+    basename: messages
+
 spring.liquibase.change-log: classpath:db/changelog/db.chagelog-master.yaml
 
-security:
-  oauth2:
-    client:
-      registration:
-        google:
-          clientId: 1057504398138-n9nnnh1g8mu0jflune6vkm4a0c3div9t.apps.googleusercontent.com
-          clientSecret: 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
-          redirectUri: http://localhost:8080/login/oauth2/code/google
-          scope: openid,email,profile
+
 
 springdoc:
   swagger-ui:
