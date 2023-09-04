@@ -16,84 +16,84 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Map;
 
-import static com.dmdev.spring.database.entity.querydsl.QUser.user;
+//import static com.dmdev.spring.database.entity.querydsl.QUser.user;
 
 @RequiredArgsConstructor
 public class FilterUserRepositoryImpl implements FilterUserRepository {
 
-    public static final String FIND_BY_COMPANY_AND_ROLE = """
-            SELECT 
-               firstname,
-               lastname,
-               birth_date
-            FROM users
-            WHERE company_id = ?
-            AND role = ?
-            """;
-
-    private final EntityManager entityManager;
-
-    private final JdbcTemplate jdbcTemplate;
-
-    @Override
-    public List<User> findAllByFilter(UserFilter filter) {
-        Predicate predicate = QPredicates.builder()
-                .add(filter.firstname(), user.firstname::containsIgnoreCase)
-                .add(filter.lastname(), user.firstname::containsIgnoreCase)
-                .add(filter.birthDate(), user.birthDate::before)
-                .build();
-        return new JPAQuery<User>(entityManager)
-                .select(user)
-                .from(user)
-                .where(predicate)
-                .fetch();
-//        return null;
-
-    }
-
-    @Override
-    public List<PersonalInfo> findAllByCompanyIdAndRole(Integer companyId, Role role) {
-        return jdbcTemplate.query(FIND_BY_COMPANY_AND_ROLE, (rs, rowNum) -> new PersonalInfo(
-                        rs.getString("firstname"),
-                        rs.getString("lastname"),
-                        rs.getDate("birth_date").toLocalDate()
-                ),
-                companyId, role.name()
-        );
-    }
-
-    public static final String UPDATE_COMPANY_AND_ROLE = """
-            UPDATE users
-            SET company_id = ?,
-                role = ?
-            WHERE id = ?                        
-            """;
-
-    @Override
-    public void updateCompanyAndRole(List<User> users) {
-        List<Object[]> args = users.stream().map(user -> new Object[]{user.getCompany().getId(), user.getRole().name(), user.getId()}).toList();
-        jdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE, args);
-    }
-
-
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    public static final String UPDATE_COMPANY_AND_ROLE_NAMED = """
-            UPDATE users
-            SET company_id = :companyId,
-                role = :role
-            WHERE id = :id                        
-            """;
-
-    @Override
-    public void updateCompanyAndRoleNamed(List<User> users) {
-        MapSqlParameterSource[] mapSqlParameterSources = users.stream().map(user -> Map.of(
-                        "companyId", user.getCompany().getId(),
-                        "role", user.getRole().name(),
-                        "id", user.getId()
-                )).map(MapSqlParameterSource::new)
-                .toArray(MapSqlParameterSource[]::new);
-        namedParameterJdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE_NAMED, mapSqlParameterSources);
-    }
+//    public static final String FIND_BY_COMPANY_AND_ROLE = """
+//            SELECT
+//               firstname,
+//               lastname,
+//               birth_date
+//            FROM users
+//            WHERE company_id = ?
+//            AND role = ?
+//            """;
+//
+//    private final EntityManager entityManager;
+//
+//    private final JdbcTemplate jdbcTemplate;
+//
+//    @Override
+//    public List<User> findAllByFilter(UserFilter filter) {
+//        Predicate predicate = QPredicates.builder()
+//                .add(filter.firstname(), user.firstname::containsIgnoreCase)
+//                .add(filter.lastname(), user.firstname::containsIgnoreCase)
+//                .add(filter.birthDate(), user.birthDate::before)
+//                .build();
+//        return new JPAQuery<User>(entityManager)
+//                .select(user)
+//                .from(user)
+//                .where(predicate)
+//                .fetch();
+////        return null;
+//
+//    }
+//
+//    @Override
+//    public List<PersonalInfo> findAllByCompanyIdAndRole(Integer companyId, Role role) {
+//        return jdbcTemplate.query(FIND_BY_COMPANY_AND_ROLE, (rs, rowNum) -> new PersonalInfo(
+//                        rs.getString("firstname"),
+//                        rs.getString("lastname"),
+//                        rs.getDate("birth_date").toLocalDate()
+//                ),
+//                companyId, role.name()
+//        );
+//    }
+//
+//    public static final String UPDATE_COMPANY_AND_ROLE = """
+//            UPDATE users
+//            SET company_id = ?,
+//                role = ?
+//            WHERE id = ?
+//            """;
+//
+//    @Override
+//    public void updateCompanyAndRole(List<User> users) {
+//        List<Object[]> args = users.stream().map(user -> new Object[]{user.getCompany().getId(), user.getRole().name(), user.getId()}).toList();
+//        jdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE, args);
+//    }
+//
+//
+//    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+//
+//    public static final String UPDATE_COMPANY_AND_ROLE_NAMED = """
+//            UPDATE users
+//            SET company_id = :companyId,
+//                role = :role
+//            WHERE id = :id
+//            """;
+//
+//    @Override
+//    public void updateCompanyAndRoleNamed(List<User> users) {
+//        MapSqlParameterSource[] mapSqlParameterSources = users.stream().map(user -> Map.of(
+//                        "companyId", user.getCompany().getId(),
+//                        "role", user.getRole().name(),
+//                        "id", user.getId()
+//                )).map(MapSqlParameterSource::new)
+//                .toArray(MapSqlParameterSource[]::new);
+//        namedParameterJdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE_NAMED, mapSqlParameterSources);
+//    }
 
 }
