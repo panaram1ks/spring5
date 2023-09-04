@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,6 +40,8 @@ public class UserService implements UserDetailsService {
     private final UserCreateEditMapper userCreateEditMapper;
     private final ImageService imageService;
 
+//    @PostFilter("filterObject.role.name().equals('ADMIN')")
+//    @PostFilter("@companyService.findById(filterObject.company.id()).ifPresent()")
     public List<UserReadDto> findAll(UserFilter filter, Pageable pageable) {
 //        Predicate predicate = QPredicates.builder()
 //                .add(filter.firstname(), user.firstname::containsIgnoreCase)
