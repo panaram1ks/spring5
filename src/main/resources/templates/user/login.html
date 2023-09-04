@@ -5,7 +5,11 @@
     <title>Login</title>
 </head>
 <body>
-<form action="/login" method="post">
+<form th:action="@{/login}" method="post">
+
+<!--    first var add csrf token to form hardcoded-->
+<!--    <input type="hidden" th:nama="${_csrf.parameterName}" th:value="${_csrf.token}">-->
+
     <div style="color: red" th:if="${param.error}">
         Bad credentials
     </div>
