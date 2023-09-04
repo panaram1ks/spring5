@@ -6,13 +6,25 @@
 </head>
 <body>
 
-    <div th:fragment="header">
-        <span th:text="${#authentication.principal.username}">username</span>
-        <form th:action="@{/logout}" method="post">
-            <button type="submit">Logout</button>
-        </form>
-    </div>
+<div th:fragment="header">
+    <span th:text="${#authentication.principal.username}">username</span>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    <div th:insert="~{fragment :: locale}"></div>
+</div>
 
+<
+<div th:fragment="locale">
+<!--    we do not use action, request will sent on the same url where user is-->
+    <form action="">
+        <select name="lang" onchange="this.form.submit()">
+            <option></option>
+            <option value="en">EN</option>
+            <option value="ru">RU</option>
+        </select>
+    </form>
+</div>
 
 </body>
 </html>
