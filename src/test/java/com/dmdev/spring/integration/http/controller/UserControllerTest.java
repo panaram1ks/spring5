@@ -11,6 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -24,24 +26,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @RequiredArgsConstructor
+@WithMockUser(username = "test@gmail.com", authorities = {"ADMIN", "USER"}, password = "test") // second var set user in security context in test
 class UserControllerTest extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
 
     @BeforeEach
     void init() {
-        List<GrantedAuthority> roles = Arrays.asList(Role.ADMIN, Role.USER);
-        User user = new User("test@gmail.com", "test", roles);
-        TestingAuthenticationToken testingAuthenticationToken = new TestingAuthenticationToken(user, user.getPassword(), roles);
+        // first var set user in security context in test
 
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(testingAuthenticationToken);
-        SecurityContextHolder.setContext(securityContext);
+//        List<GrantedAuthority> roles = Arrays.asList(Role.ADMIN, Role.USER);
+//        User user = new User("test@gmail.com", "test", roles);
+//        TestingAuthenticationToken testingAuthenticationToken = new TestingAuthenticationToken(user, user.getPassword(), roles);
+//
+//        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+//        securityContext.setAuthentication(testingAuthenticationToken);
+//        SecurityContextHolder.setContext(securityContext);
     }
 
     @Test
+//    @WithMockUser(username = "test@gmail.com", authorities = {"ADMIN", "USER"}, password = "test") // second var set user in security context in test
     void findAll() throws Exception {
-        mockMvc.perform(get("/users"))
+        mockMvc.perform(get("/users")
+                        .with(SecurityMockMvcRequestPostProcessors.user("test@gmil.com").authorities(Role.ADMIN).password("test"))) // third var set user in security context in tes
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
                 .andExpect(view().name("user/users"))
                 .andExpect(model().attributeExists("users"));
