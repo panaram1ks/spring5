@@ -65,5 +65,12 @@ security:
           clientId: 1057504398138-n9nnnh1g8mu0jflune6vkm4a0c3div9t.apps.googleusercontent.com
           clientSecret: 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
           redirectUri: http://localhost:8080/login/oauth2/code/google
-          scope: openid
+          scope: openid,email,profile
 
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: 1057504398138-n9nnnh1g8mu0jflune6vkm4a0c3div9t.apps.googleusercontent.com
+      client-secret: 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
+      scope: openid,email,profile
+      oauth2-redirect-url: http://localhost:8080/swagger-ui/oauth2-redirect.html
