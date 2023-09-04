@@ -47,8 +47,8 @@ dependencies {
 querydsl {
     jpa = true
     library = "com.querydsl:querydsl-apt:5.0.0"
-//    querydslSourcesDir = "$buildDir/generated/sources/annotationProcessor/java/main"
-    querydslSourcesDir = "$projectDir/generated/sources/annotationProcessor"
+    querydslSourcesDir = "$buildDir/generated/sources/annotationProcessor/java/main"
+//    querydslSourcesDir = "$projectDir/generated/sources/annotationProcessor"
 }
 
 compileQuerydsl {

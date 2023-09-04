@@ -23,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.groups.Default;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -41,8 +42,9 @@ public class UserController {
 
     @GetMapping
     public String findAll(Model model, UserFilter filter, Pageable pageabel) {
-        Page<UserReadDto> page = userService.findAll(filter, pageabel);
-        model.addAttribute("users", PageResponse.of(page));
+        List<UserReadDto> page = userService.findAll(filter, pageabel);
+//        model.addAttribute("users", PageResponse.of(page));
+        model.addAttribute("users", page);
         model.addAttribute("filter", filter);
         return "user/users";
     }
@@ -78,7 +80,8 @@ public class UserController {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/users/registration";
         }
-        return "redirect:/users/" + userService.create(user).getId();
+        userService.create(user);
+        return "redirect:/login";
     }
 
     //    @PutMapping("/{id}")

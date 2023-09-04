@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.dmdev.spring.database.entity.querydsl.QUser.user;
+//import static com.dmdev.spring.database.entity.querydsl.QUser.user;
 
 @Service
 @RequiredArgsConstructor
@@ -39,18 +39,21 @@ public class UserService implements UserDetailsService {
     private final UserCreateEditMapper userCreateEditMapper;
     private final ImageService imageService;
 
-    public Page<UserReadDto> findAll(UserFilter filter, Pageable pageable) {
-        Predicate predicate = QPredicates.builder()
-                .add(filter.firstname(), user.firstname::containsIgnoreCase)
-                .add(filter.lastname(), user.firstname::containsIgnoreCase)
-                .add(filter.birthDate(), user.birthDate::before)
-                .build();
-        return userRepository.findAll(predicate, pageable)
-                .map(userReadMapper::map);
+    public List<UserReadDto> findAll(UserFilter filter, Pageable pageable) {
+//        Predicate predicate = QPredicates.builder()
+//                .add(filter.firstname(), user.firstname::containsIgnoreCase)
+//                .add(filter.lastname(), user.firstname::containsIgnoreCase)
+//                .add(filter.birthDate(), user.birthDate::before)
+//                .build();
+//        return userRepository.findAll(predicate, pageable)
+//                .map(userReadMapper::map);
 
 //        return userRepository.findAllByFilter(filter).stream()
 //                .map(userReadMapper::map)
 //                .collect(Collectors.toList());
+
+        return userRepository.findAll().stream().map(userReadMapper::map)
+                .toList();
     }
 
     public List<UserReadDto> findAll() {

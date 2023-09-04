@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.groups.Default;
+import java.util.List;
 
 //@Controller
 //@ResponseBody
@@ -30,9 +31,12 @@ public class UserRestController {
     private final UserService userService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public PageResponse<UserReadDto> findAll(UserFilter filter, Pageable pageabel) {
-        Page<UserReadDto> page = userService.findAll(filter, pageabel);
-        return PageResponse.of(page);
+//    public PageResponse<UserReadDto> findAll(UserFilter filter, Pageable pageabel) {
+    public List<UserReadDto> findAll(UserFilter filter, Pageable pageabel) {
+//        Page<UserReadDto> page = userService.findAll(filter, pageabel);
+        List<UserReadDto> page = userService.findAll(filter, pageabel);
+//        return PageResponse.of(page);
+        return page;
     }
 
     @GetMapping("/{id}")
