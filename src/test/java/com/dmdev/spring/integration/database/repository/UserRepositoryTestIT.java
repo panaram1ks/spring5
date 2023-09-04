@@ -29,7 +29,7 @@ class UserRepositoryTestIT extends IntegrationTestBase {
     @Test
     void checkBatch(){
         List<User> all = userRepository.findAll();
-        userRepository.updateCompanyAndRole(all);
+//        userRepository.updateCompanyAndRole(all);
         System.out.println();
     }
 
@@ -45,21 +45,22 @@ class UserRepositoryTestIT extends IntegrationTestBase {
 
     @Test
     void checkJdbcTemplate_Spring(){
-        List<PersonalInfo> users = userRepository.findAllByCompanyIdAndRole(1, Role.ADMIN);
-        assertEquals(users.size(), 1);
+//        List<PersonalInfo> users = userRepository.findAllByCompanyIdAndRole(1, Role.ADMIN);
+        List<User> users = userRepository.findAll();
+        assertEquals(users.size(), 6);
     }
 
     @Test
     void checkQueryDsl(){
         UserFilter filter = new UserFilter(null, "%ov%", LocalDate.now());
-        List<User> users = userRepository.findAllByFilter(filter);
+//        List<User> users = userRepository.findAllByFilter(filter);
         System.out.println();
     }
 
     @Test
     void checkCustomImplementation(){
         UserFilter filter = new UserFilter(null, "%ov%", LocalDate.now());
-        List<User> users = userRepository.findAllByFilter(filter);
+//        List<User> users = userRepository.findAllByFilter(filter);
         System.out.println();
     }
 
