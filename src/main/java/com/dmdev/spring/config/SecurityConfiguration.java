@@ -14,8 +14,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
-                .and()
+                .authorizeHttpRequests(
+                        urlConfig -> urlConfig
+                                .antMatchers("/login", "/users/registration", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                                .antMatchers("/users/{\\d+}/delete").hasAuthority("ADMIN")
+                                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                                .anyRequest().authenticated()
+                )
+//                .anyRequest().authenticated()
+//                .and()
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
@@ -25,7 +32,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin(login -> login
                         .loginPage("/login")
                         .defaultSuccessUrl("/users")
-                        .permitAll()
                 );
     }
 
