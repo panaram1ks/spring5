@@ -6,6 +6,8 @@
 </head>
 <body>
 
+<div th:insert="~{fragment :: header}"></div>
+
 <form th:action="@{/users/{userId}/update(userId=${user.id})}"
       method="post"
       th:object="${user}"
