@@ -1,9 +1,12 @@
 package com.dmdev.spring.aop;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Aspect
 @Component
 public class FirstAspect {
@@ -79,6 +82,13 @@ public class FirstAspect {
     }
 
 //    Pointcut - is simply predicate return true or false!
+
+//  ADVICE  !!!
+    @Before("anyFindByIdServiceMethod()")
+//    @Before("execution(public Long com.dmdev.spring.service.*.findById(Integer, Long)) SQLException ) )")
+    public void addLogging(){
+        log.info("invoked findById method!!!!!!!!!!!!!!!!!!!!!!!!!!!1111");
+    }
 
 
 }

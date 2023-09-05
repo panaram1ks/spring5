@@ -59,7 +59,7 @@ public class UserController {
 //    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @PreAuthorize("hasAuthority('ADMIN')")
 //    @PostAuthorize("returnObject") // if we want check answer of controller method
-    public String findAll(@PathVariable("id") Long id, Model model,
+    public String findById(@PathVariable("id") Long id, Model model,
 //                          @CurrentSecurityContext SecurityContext securityContext,
                           @AuthenticationPrincipal UserDetails userDetails) {
         log.error(userDetails.getUsername());
