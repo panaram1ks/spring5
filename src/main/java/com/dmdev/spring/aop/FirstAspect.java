@@ -2,9 +2,7 @@ package com.dmdev.spring.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,5 +92,18 @@ public class FirstAspect {
         log.warn("invoked findById method in class {}, with id {}", service, id);
     }
 
+    @AfterReturning(value = "anyFindByIdServiceMethod() && target(service)", returning = "result")
+    public void addLoggingAfterReturning(Object result, Object service) {
+        log.warn("after returning - invoked findById method in class {}, with result {}", service, result);
+    }
+
+    @AfterThrowing(value = "anyFindByIdServiceMethod() && target(service)", throwing = "ex")
+    public void addLoggingAfterThrowing(Throwable ex, Object service) {
+        log.warn("after throwing - invoked findById method in class {}, with exception {}: {}", service, ex.getClass(), ex.getMessage());
+    }
+    @After("anyFindByIdServiceMethod() && target(service)")
+    public void addLoggingAfterFinally(Object service) {
+        log.warn("after throwing - invoked findById method in class {}", service);
+    }
 
 }
