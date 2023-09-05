@@ -1,8 +1,7 @@
-package com.dmdev.spring.aop;
+package com.dmdev.logging.config.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -10,56 +9,52 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Aspect
-@Component
-@Order(1)
 public class FirstAspect {
 
-
-
-    /**
-     * this - check AOP proxy class type
-     * target - check target object class type
-     */
-    @Pointcut("this(org.springframework.data.repository.Repository)")
-//    @Pointcut("target(org.springframework.data.repository.Repository)")
-    public void isRepositoryLayer() {
-    }
-
-    /**
-     * @annotation - check annotation above method
-     */
-    @Pointcut("com.dmdev.spring.aop.CommonPointcuts.isControllerLayer() && @annotation(org.springframework.web.bind.annotation.GetMapping)")
-    public void hasGetMapping() {
-    }
-
-    /**
-     * args - check method param type
-     * * - any param type
-     * .. - 0+ any params type
-     */
-    @Pointcut("com.dmdev.spring.aop.CommonPointcuts.isControllerLayer() && args(org.springframework.ui.Model,..)")
-    // first parameter is Model and then any numbers of parameters
-//    @Pointcut("args(org.springframework.ui.Model,*)") // first parameter is Model and only one more parameter
-//    @Pointcut("args(org.springframework.ui.Model,*,*,*)") // first parameter is Model and 3 parameters after
-    public void hasModelParam() {
-    }
-
-    /**
-     * @args - try find methods where first and only one parm has annotation UserInfo
-     * @args - check annotation above the param type
-     */
-//    @Pointcut("isControllerLayer() && @args(com.dmdev.spring.validation.UserInfo)")
-    @Pointcut("com.dmdev.spring.aop.CommonPointcuts.isControllerLayer() && @args(com.dmdev.spring.validation.UserInfo,..)")
-    public void hasUserInfoParamAnnotation() {
-    }
-
-    /**
-     * bean - check bean name
-     */
-//    @Pointcut("bean(userService)")
-    @Pointcut("bean(*Service)")
-    public void isServiceLayerBean() {
-    }
+//    /**
+//     * this - check AOP proxy class type
+//     * target - check target object class type
+//     */
+//    @Pointcut("this(org.springframework.data.repository.Repository)")
+////    @Pointcut("target(org.springframework.data.repository.Repository)")
+//    public void isRepositoryLayer() {
+//    }
+//
+//    /**
+//     * @annotation - check annotation above method
+//     */
+//    @Pointcut("com.dmdev.spring.aop.CommonPointcuts.isControllerLayer() && @annotation(org.springframework.web.bind.annotation.GetMapping)")
+//    public void hasGetMapping() {
+//    }
+//
+//    /**
+//     * args - check method param type
+//     * * - any param type
+//     * .. - 0+ any params type
+//     */
+//    @Pointcut("com.dmdev.spring.aop.CommonPointcuts.isControllerLayer() && args(org.springframework.ui.Model,..)")
+//    // first parameter is Model and then any numbers of parameters
+////    @Pointcut("args(org.springframework.ui.Model,*)") // first parameter is Model and only one more parameter
+////    @Pointcut("args(org.springframework.ui.Model,*,*,*)") // first parameter is Model and 3 parameters after
+//    public void hasModelParam() {
+//    }
+//
+//    /**
+//     * @args - try find methods where first and only one parm has annotation UserInfo
+//     * @args - check annotation above the param type
+//     */
+////    @Pointcut("isControllerLayer() && @args(com.dmdev.spring.validation.UserInfo)")
+//    @Pointcut("com.dmdev.spring.aop.CommonPointcuts.isControllerLayer() && @args(com.dmdev.spring.validation.UserInfo,..)")
+//    public void hasUserInfoParamAnnotation() {
+//    }
+//
+//    /**
+//     * bean - check bean name
+//     */
+////    @Pointcut("bean(userService)")
+//    @Pointcut("bean(*Service)")
+//    public void isServiceLayerBean() {
+//    }
 
     /**
      * ? - optional parameter

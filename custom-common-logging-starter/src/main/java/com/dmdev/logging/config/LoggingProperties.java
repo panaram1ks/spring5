@@ -13,6 +13,9 @@ import javax.annotation.PostConstruct;
 @ConfigurationProperties(prefix = "app.common.logging")
 public class LoggingProperties {
 
+    /**
+     *  to enable common logging aop on service layer
+     */
     private boolean enable;
     private String level;
 

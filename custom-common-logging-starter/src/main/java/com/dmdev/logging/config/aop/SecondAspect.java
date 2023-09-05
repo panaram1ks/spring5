@@ -1,4 +1,4 @@
-package com.dmdev.spring.aop;
+package com.dmdev.logging.config.aop;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +10,10 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Aspect
-@Component
-@Order(2)
 public class SecondAspect {
 
     // All in one !
-    @Around("com.dmdev.spring.aop.FirstAspect.anyFindByIdServiceMethod() && target(service) && args(id)")
+    @Around("com.dmdev.logging.config.aop.FirstAspect.anyFindByIdServiceMethod() && target(service) && args(id)")
     public Object addLoggingAround(ProceedingJoinPoint joinPoint, Object service, Object id) throws Throwable {
         log.warn("@Around (Before) - invoked findById method in class {}, with id {}", service, id);
         try{
