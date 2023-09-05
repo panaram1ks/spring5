@@ -2,6 +2,7 @@ package com.dmdev.spring.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,21 +90,38 @@ public class FirstAspect {
 //    @Before("execution(public Long com.dmdev.spring.service.*.findById(Integer, Long)) SQLException ) )")
 //    JoinPoint always should go first !!!
     public void addLogging(JoinPoint joinPoint, Object id, Object service, Object serviceProxy, Transactional transactional) {
-        log.warn("invoked findById method in class {}, with id {}", service, id);
+        log.warn("@Before - invoked findById method in class {}, with id {}", service, id);
     }
 
     @AfterReturning(value = "anyFindByIdServiceMethod() && target(service)", returning = "result")
     public void addLoggingAfterReturning(Object result, Object service) {
-        log.warn("after returning - invoked findById method in class {}, with result {}", service, result);
+        log.warn("@AfterReturning - invoked findById method in class {}, with result {}", service, result);
     }
 
     @AfterThrowing(value = "anyFindByIdServiceMethod() && target(service)", throwing = "ex")
     public void addLoggingAfterThrowing(Throwable ex, Object service) {
-        log.warn("after throwing - invoked findById method in class {}, with exception {}: {}", service, ex.getClass(), ex.getMessage());
+        log.warn("@AfterThrowing - invoked findById method in class {}, with exception {}: {}", service, ex.getClass(), ex.getMessage());
     }
     @After("anyFindByIdServiceMethod() && target(service)")
     public void addLoggingAfterFinally(Object service) {
-        log.warn("after throwing - invoked findById method in class {}", service);
+        log.warn(" @After - invoked findById method in class {}", service);
+    }
+
+
+    // All in one !
+    @Around("anyFindByIdServiceMethod() && target(service) && args(id)")
+    public Object addLoggingAround(ProceedingJoinPoint joinPoint, Object service, Object id) throws Throwable {
+        log.warn("@Around (Before) - invoked findById method in class {}, with id {}", service, id);
+        try{
+            Object result = joinPoint.proceed();
+            log.warn("@Around (AfterReturning) - invoked findById method in class {}, with result {}", service, result);
+            return result;
+        } catch (Throwable ex){
+            log.warn("@Around (AfterThrowing) - invoked findById method in class {}, with exception {}: {}", service, ex.getClass(), ex.getMessage());
+            throw ex;
+        } finally {
+            log.warn("@Around (After) - invoked findById method in class {}", service);
+        }
     }
 
 }
