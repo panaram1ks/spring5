@@ -62,7 +62,7 @@ public class UserController {
     public String findById(@PathVariable("id") Long id, Model model,
 //                          @CurrentSecurityContext SecurityContext securityContext,
                           @AuthenticationPrincipal UserDetails userDetails) {
-        log.error(userDetails.getUsername());
+        log.warn(userDetails.getUsername());
         return userService.findById(id)
                 .map(user -> {
                     model.addAttribute("user", user);

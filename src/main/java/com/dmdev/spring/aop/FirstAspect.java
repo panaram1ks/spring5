@@ -1,10 +1,12 @@
 package com.dmdev.spring.aop;
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Aspect
@@ -83,11 +85,13 @@ public class FirstAspect {
 
 //    Pointcut - is simply predicate return true or false!
 
-//  ADVICE  !!!
-    @Before("anyFindByIdServiceMethod()")
+    //  ADVICE  !!!
+    @Before(value = "anyFindByIdServiceMethod() && args(id) && target(service) && this(serviceProxy) && @within(transactional)",
+            argNames = "joinPoint,id,service,serviceProxy,transactional")
 //    @Before("execution(public Long com.dmdev.spring.service.*.findById(Integer, Long)) SQLException ) )")
-    public void addLogging(){
-        log.info("invoked findById method!!!!!!!!!!!!!!!!!!!!!!!!!!!1111");
+//    JoinPoint always should go first !!!
+    public void addLogging(JoinPoint joinPoint, Object id, Object service, Object serviceProxy, Transactional transactional) {
+        log.warn("invoked findById method in class {}, with id {}", service, id);
     }
 
 
